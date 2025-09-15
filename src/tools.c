@@ -1,4 +1,4 @@
-#include "tools.h"
+#include "../incs/tools.h"
 
 int doesFolderExist(char *folderName) {
     struct stat st;
@@ -7,3 +7,13 @@ int doesFolderExist(char *folderName) {
     else
         return 0; // No existe o no es directorio
 }
+
+int doesFileExist(char *fileName) {
+    struct stat st;
+    if (stat(fileName, &st) == 0 && S_ISREG(st.st_mode))
+        return 1; // Es un archivo
+    else
+        return 0; // No existe o no es archivo
+}
+
+

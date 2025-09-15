@@ -14,5 +14,8 @@ int main(int argc, char* argv[])
     {
         init();
     }
-
+    else if(!strcmp("config\0", argv[1]))
+    {
+        userConfig();
+    }
 }

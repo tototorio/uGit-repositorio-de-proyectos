@@ -13,3 +13,5 @@
 #define ANSI_COLOR_RESET    "\x1b[0m"
 
 int doesFolderExist(char *folderName);
+
+int doesFileExist(char *fileName);

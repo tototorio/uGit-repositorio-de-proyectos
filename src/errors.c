@@ -17,17 +17,49 @@ void showError(int num_error, char* aux, char* obs)
     switch (num_error)
     {
     case 100: // Repositorio ya existe
-        printf("El repositorio %s ya existe\n", aux);
+        printf("El repositorio %s ya existe.", aux);
         break;
     case 101: // Error al crear repositorio
-        printf("No se pudo crear el repositorio %s\n", aux);
+        printf("No se pudo crear el repositorio %s.", aux);
         break;
     case 102: // Error al crear archivo
-        printf("No se pudo crear el archivo %s\n", aux);
+        printf("No se pudo crear el archivo %s.", aux);
         break;
-    
-    default:
-        printf("Error desconocido\n");
+    case 103: // Error al pasar el limite de caracteres
+        printf("Se ha llegado al límite de carácteres ingresados.", aux);
+        break;
+    case 104: // Error en la entrada 
+        printf("Error en la entrada.");
+        break;
+    case 105: // Error en la creacion de usuario 
+        printf("No se logró guardar el usuario.");
+        break;
+    case 106: // Error al encontrar el archivo 
+        printf("No se encontró el archivo.");
+        break;
+    case 107: // Error al no detectar cambios 
+        printf("El archivo %s no recibió ningún cambio.", aux);
+        break;
+    case 108: // Error para cuando no se puede guardar un archivo 
+        printf("No se logró guardar el archivo %s.", aux);
+        break;
+    case 109: // Error para cuando no se logra abrir el archivo
+        printf("No se logró abrir el archivo %s.", aux);
+        break;
+    case 110:// Error para cuando el repositorio no existe
+        printf("El repositorio %s no existe.", aux);
+        break;
+    case 111: // Error para cuando se encuentra un archivo vacío
+        printf("Archivo %s se encuentra vacío.", aux);
+        break;
+
+    default: // default en caso de no tener un codigo de error
+        printf("Error desconocido.");
         break;
     }
+
+    if (obs != NULL) {
+        printf(" %s", obs);
+    }
+    printf("\n");
 }
