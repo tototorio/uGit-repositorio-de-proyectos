@@ -57,3 +57,23 @@ int createCommit(char* message) {
     printf("Commit creado: %s\n", commitHash);
     return 1;
 }
+
+void showCommitHistory() {  
+    if (!doesFileExist(".ugit/log.txt")) {
+        showError(109, ".ugit/log.txt", "No hay commits aún");
+        return;
+    }
+    
+    FILE* logFile = fopen(".ugit/log.txt", "r");
+    if (!logFile) {
+        showError(109, ".ugit/log.txt", NULL);
+        return;
+    }
+    
+    printf("Historial de commits:\n");
+    char line[256];
+    while (fgets(line, sizeof(line), logFile)) {
+        printf("  %s", line);
+    }
+    fclose(logFile);
+}
