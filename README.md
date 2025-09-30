@@ -12,7 +12,4 @@ Sistema de control de versiones básico implementado en C para la asignatura de 
 - `ugit log` - Mostrar historial
 - `ugit checkout <hash>` - Cambiar a commit específico
 
-## Compilación
 
-```bash
-make
