@@ -1,9 +1,7 @@
 #include "hash.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-/// @brief Función de hash de Jenkins (One-at-a-time)
-/// @param key Cadena de texto a hashear
-/// @param len Longitud de la cadena a hashear
-/// @return Hash
 unsigned int jenkinsHash(unsigned char *key, size_t len) {
     unsigned int hash = 0;
     for (size_t i = 0; i < len; i++) {
@@ -18,11 +16,11 @@ unsigned int jenkinsHash(unsigned char *key, size_t len) {
 }
 
 unsigned int hashFile(char *filename) {
-    FILE *file = fopen(filename, "rb"); // Abrir el archivo en modo binario
+    FILE *file = fopen(filename, "rb");
     char aux[30];
     if (!file) {
-        printError(112, filename, NULL);
-        exit(EXIT_FAILURE);
+        showError(112, filename, NULL);
+        return 0;
     }
 
     // Determinar el tamaño del archivo
@@ -30,18 +28,25 @@ unsigned int hashFile(char *filename) {
     long fileSize = ftell(file);
     fseek(file, 0, SEEK_SET);
 
-    // Leer el contenido del archivo
-    unsigned char *buffer = (unsigned char *)malloc(fileSize * sizeof(unsigned char));
-    if (!buffer) {
-        sprintf(aux, "%lu", (fileSize * sizeof(unsigned char)));
-        printError(200, aux, NULL);
+    // Si el archivo está vacío
+    if (fileSize == 0) {
         fclose(file);
-        exit(EXIT_FAILURE);
+        return 0;
     }
 
-    if(fread(buffer, sizeof(unsigned char), fileSize, file) < (long unsigned int)fileSize)
-    {
-        printError(109, filename, NULL);
+    // Leer el contenido del archivo
+    unsigned char *buffer = (unsigned char *)malloc(fileSize);
+    if (!buffer) {
+        sprintf(aux, "%lu", (unsigned long)fileSize);
+        showError(200, aux, NULL);
+        fclose(file);
+        return 0;
+    }
+
+    if(fread(buffer, 1, fileSize, file) < (size_t)fileSize) {
+        showError(109, filename, NULL);
+        free(buffer);
+        fclose(file);
         return 0;
     }
     fclose(file);
